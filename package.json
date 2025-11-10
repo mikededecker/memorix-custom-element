@@ -1,0 +1,47 @@
+{
+  "name": "memorix-elements",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "yarn lint && vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@rdfjs/fetch": "^3.1.1",
+    "@rdfjs/formats-common": "^3.1.0",
+    "rdf-ext": "^2.6.0",
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/bootstrap": "^5",
+    "@types/clownface": "^2",
+    "@types/node": "^24.6.0",
+    "@types/rdf-ext": "^2",
+    "@types/rdfjs__fetch": "^3",
+    "@types/rdfjs__formats-common": "^3",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "@vueuse/core": "^14.0.0",
+    "bootstrap": "^5.3.8",
+    "clownface": "^2.0.3",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "eslint-plugin-vue": "^10.5.1",
+    "material-symbols": "^0.39.1",
+    "sass-embedded": "^1.93.3",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.3",
+    "vite": "^7.1.7",
+    "vue-eslint-parser": "^10.2.0",
+    "vue-tsc": "^3.1.0"
+  },
+  "packageManager": "yarn@4.11.0"
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>memorix-elements</title>
+  </head>
+  <body>
+  <memorix-search-detail api-url="%VITE_API_URL%"></memorix-search-detail>
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id');
+        if (id) {
+          var el = document.querySelector('memorix-search-detail');
+          if (el) el.setAttribute('record-id', id);
+        }
+      } catch (e) {
+        // no-op
+      }
+    })();
+  </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
