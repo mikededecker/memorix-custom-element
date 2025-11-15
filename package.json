@@ -8,7 +8,9 @@
     "build": "yarn lint && vue-tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "docker:build": "docker build -f ./docker/Dockerfile -t memorix-elements .",
+    "docker:run": "docker run -p 8080:80 memorix-elements"
   },
   "dependencies": {
     "@rdfjs/fetch": "^3.1.1",
