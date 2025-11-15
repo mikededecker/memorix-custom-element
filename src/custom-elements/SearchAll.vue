@@ -5,16 +5,21 @@ import {computed, reactive, watch} from "vue";
 import {UrlParams, SessionKeys} from "../types/Url.types.ts";
 import ElementsTabs from "@/components/ElementsTabs.vue";
 import ElementsInput from "@/components/form/ElementsInput.vue";
+import { useI18n } from "@/composibles/useI18n.ts";
 import type {AbstractQuery, Facet} from "@/types/Query.types.ts";
 
 interface Props {
   apiUrl: string;
   detailUrl?: string;
+  lang?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   detailUrl: '/detail/:uid',
+  lang: 'nl',
 });
+
+const { t, n, lang, } = useI18n(props.lang);
 
 type UrlStore = Record<string, string | string[] | null>;
 const SearchParams = useUrlSearchParams<UrlStore>("hash-params", {write: true,});
@@ -129,7 +134,7 @@ const requestBody = computed(() => {
 });
 
 const {data, isFetching, execute, onFetchResponse,} = useFetch(
-  `${props.apiUrl}/search/records?lang=nl`,
+  `${props.apiUrl}/search/records?lang=${lang}`,
   {
     headers: {
       "Content-Type": "application/json",
@@ -209,14 +214,20 @@ function getDetailUrl(uid: string): string {
     <div class="row"><div class="col">
       <slot name="search-tips"/>
     </div></div>
+    <!-- Hello world example using i18n composable placed below the slot -->
+    <div class="row">
+      <div class="col">
+        <small data-test="hello-example">{{ t('hello') }}</small>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <ElementsTabs
           v-model="view"
-          :tabs="{list: `Alle (${Intl.NumberFormat('nl-NL').format(total)})`, grid: `Beeld (${Intl.NumberFormat('nl-NL').format(totalMedia) })`}">
+          :tabs="{list: `${t('tabs.all')} (${n(total)})`, grid: `${t('tabs.media')} (${n(totalMedia)})`}">
           <template #list>
             <div v-if="isFetching" class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
+              <span class="visually-hidden">{{ t('loading') }}</span>
             </div>
             <div v-else class="row">
               <div v-for="record in records" :key="record.id" class="col-12">
@@ -236,7 +247,7 @@ function getDetailUrl(uid: string): string {
                       <div class="card-body">
                         <h5 class="card-title">{{ record.title }}</h5>
                         <p class="card-text">{{ record.description }}</p>
-                        <a :href="getDetailUrl(record.id)" class="btn btn-primary">Meer details</a>
+                        <a :href="getDetailUrl(record.id)" class="btn btn-primary">{{ t('moreDetails') }}</a>
                       </div>
                     </div>
                   </div>
@@ -246,7 +257,7 @@ function getDetailUrl(uid: string): string {
           </template>
           <template #grid>
             <div v-if="isFetching" class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
+              <span class="visually-hidden">{{ t('loading') }}</span>
             </div>
             <div v-else class="row">
               <div v-for="record in records" :key="record.id" class="col-6 col-md-3 col-sm-4 ">
@@ -265,7 +276,7 @@ function getDetailUrl(uid: string): string {
                   <div class="card-body">
                     <h5 class="card-title">{{ record.title }}</h5>
                     <p class="card-text">{{ record.description }}</p>
-                    <a :href="getDetailUrl(record.id)" class="btn btn-primary">Meer details</a>
+                    <a :href="getDetailUrl(record.id)" class="btn btn-primary">{{ t('moreDetails') }}</a>
                   </div>
                 </div>
 
